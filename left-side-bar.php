@@ -20,37 +20,29 @@ else{
     <div class="sidebar-menu">
       <ul id="accordion-menu">
         <li class="dropdown">
-          <a href="../perpustakaan" class="dropdown-toggle no-arrow">
+          <a href="students.php" class="dropdown-toggle no-arrow">
             <span class="micon dw dw-home"></span><span class="mtext">Dashboard</span>
           </a>
         </li>
         <li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon dw dw-chat3"></span><span class="mtext">Interaction</span>
+          <a href="index.php" class="dropdown-toggle no-arrow">
+            <span class="micon dw dw-home"></span><span class="mtext">Student</span>
           </a>
-          <ul class="submenu">
-            <li><a href="students.php">Students</a></li>
-            <li><a href="class.php">Class</a></li>
-            <li><a href="books.php">Books</a></li>
-            <li><a href="publisher.php">Publisher</a></li>
-          </ul>
         </li>
         <li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon dw dw-library"></span><span class="mtext">Website</span>
+          <a href="class.php" class="dropdown-toggle no-arrow">
+            <span class="micon dw dw-home"></span><span class="mtext">Class</span>
           </a>
-          <ul class="submenu">
-            <li><a href="textdisplay.php">Text Display</a></li>
-            <li><a href="imagedisplay.php">Image Display</a></li>
-          </ul>
         </li>
         <li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon dw dw-list3"></span><span class="mtext">Features</span>
+          <a href="textdisplay.php" class="dropdown-toggle no-arrow">
+            <span class="micon dw dw-home"></span><span class="mtext">Text Display</span>
           </a>
-          <ul class="submenu">
-            <li><a href="lending.php">Lending</a></li>
-          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="imagedisplay.php" class="dropdown-toggle no-arrow">
+            <span class="micon dw dw-home"></span><span class="mtext">Image Display</span>
+          </a>
         </li>
         <li>
           <a href="admin.php" class="dropdown-toggle no-arrow">

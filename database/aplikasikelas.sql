@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2022 at 09:15 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: Nov 22, 2021 at 07:39 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,9 +48,7 @@ INSERT INTO `class` (`id`, `class`) VALUES
 (20, 'XII RPL 1'),
 (21, 'XII RPL 2'),
 (22, 'XII OTKP'),
-(23, 'XII AKL'),
-(24, 'XIII RPL 1'),
-(25, 'XIII RPL 2');
+(23, 'XII AKL');
 
 -- --------------------------------------------------------
 
@@ -122,7 +120,7 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id`, `nopinjam`, `nisnsiswa`, `judulbuku`, `tanggalpinjam`, `tanggalkembali`, `denda`, `totalbuku`, `uniqid`) VALUES
-(25, 'TP0025', '2098390298', '4', '2022-02-12', '2022-02-15', '824000', '2', '631b5710070d0');
+(24, 'TP0024', '2098390298', '4', '2021-11-13', '2021-11-15', '2000', '1', '6193081f7ea7c');
 
 -- --------------------------------------------------------
 
@@ -163,7 +161,7 @@ CREATE TABLE `tb_buku` (
 --
 
 INSERT INTO `tb_buku` (`id`, `judul`, `pengarang`, `idpenerbit`, `jumlahbuku`, `denda`) VALUES
-(4, 'Danau Lipan', 'Shendiane Rimandani', '5', '0', '2000');
+(4, 'Danau Lipan', 'Shendiane Rimandani', '5', '1', '2000');
 
 -- --------------------------------------------------------
 
@@ -183,7 +181,7 @@ CREATE TABLE `utama` (
 --
 
 INSERT INTO `utama` (`id`, `nama`, `logo2`, `copyright`) VALUES
-(1, 'Perpustakaan', '618cf98dbf0ad.png', '2022 by Dava');
+(1, 'TC School Library', '618cf98dbf0ad.png', '2022 by David Garcia Saragih');
 
 --
 -- Indexes for dumped tables
@@ -246,7 +244,7 @@ ALTER TABLE `utama`
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `data_admin`
@@ -258,13 +256,13 @@ ALTER TABLE `data_admin`
 -- AUTO_INCREMENT for table `data_user`
 --
 ALTER TABLE `data_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=264;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
 
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `publisher`
@@ -276,7 +274,7 @@ ALTER TABLE `publisher`
 -- AUTO_INCREMENT for table `tb_buku`
 --
 ALTER TABLE `tb_buku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `utama`

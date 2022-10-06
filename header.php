@@ -45,6 +45,24 @@ $tanggal = date('d') . ' ' . date('F') . ' ' . date('Y');
     width: 30%!important;
   }
 </style>
+<script type="text/javascript">
+  function startTime() {
+    const today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    $('#txt').text(date + " " + h + ":" + m + ":" + s);
+    setTimeout(startTime, 1000);
+  }
+
+  function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+  }
+</script>
 <div class="header" id = "header">
   <div class="header-left">
     <div class="menu-icon dw dw-menu"></div>
@@ -52,11 +70,13 @@ $tanggal = date('d') . ' ' . date('F') . ' ' . date('Y');
     <div class="header-search">
       <form>
         <div class="form-group mb-0">
-          <h5 style = "text-align: center;"><?= $tanggal; ?></h5>
+          <h5 style = "text-align: center;" id = "dati"></h5>
+          <h5 style = "text-align: center;" id = "txt"></h5>
         </div>
       </form>
     </div>
   </div>
+
   <div class="header-right">
     <!--
     <div class="user-notification">

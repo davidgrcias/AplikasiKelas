@@ -28,12 +28,9 @@ $admin = mysqli_fetch_assoc(mysqli_query($connt, "SELECT * FROM data_admin"));
 	<link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-119386393-1');
-	</script>
 </head>
+<script type="text/javascript">
+	window.onload = function () {
+startTime();
+}
+</script>

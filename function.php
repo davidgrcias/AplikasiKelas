@@ -1,5 +1,5 @@
 <?php
-$connt = mysqli_connect("localhost", "root", "", "perpustakaan");
+$connt = mysqli_connect("localhost", "root", "", "aplikasikelas");
 session_start();
 date_default_timezone_set("Asia/Jakarta");
 

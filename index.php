@@ -12,6 +12,7 @@
 	}
 </style>
 <body>
+
 	<?php require 'header.php'; ?>
 
 	<?php require 'left-side-bar.php'; ?>
@@ -43,58 +44,6 @@
 							<div class="widget-data" style = "padding: 0px 0px 0px 0px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: auto; text-align: center; width: 30%!important;">
 								<div class="h4 mb-0" style = "color: #00FF00; width: 80px; text-align: center;"><?php echo count(query("SELECT * FROM class")); ?></div>
 								<div class="weight-600 font-14" style = "color: #00FF00; width: 80px; text-align: center;"><a style = "color: #00FF00;" href = "class.php">Class</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 mb-30">
-					<div class="card-box height-100-p widget-style1">
-						<div style = "display: flex; height: 80px;">
-							<div class="progress-data" style = "border-right: 1px solid #eaeaea; display: flex; justify-content: center; width: 50%!important;">
-								<i style = "color: #8A2BE2; display: block; font-size: 50px; margin: auto!important;" class="icon-copy fa fa-user-circle-o" aria-hidden="true"></i>
-							</div>
-							<div class="widget-data" style = "padding: 0px 0px 0px 0px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: auto; text-align: center; width: 30%!important;">
-								<div class="h4 mb-0" style = "color: #8A2BE2; width: 80px; text-align: center;"><?php echo count(query("SELECT * FROM tb_buku")); ?></div>
-								<div class="weight-600 font-14" style = "color: #8A2BE2; width: 80px; text-align: center;"><a style = "color: #8A2BE2;" href = "books.php">Books</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 mb-30">
-					<div class="card-box height-100-p widget-style1">
-						<div style = "display: flex; height: 80px;">
-							<div class="progress-data" style = "border-right: 1px solid #eaeaea; display: flex; justify-content: center; width: 50%!important;">
-								<i style = "color: #45A94B; display: block; font-size: 50px; margin: auto!important;" class="icon-copy fa fa-user-circle-o" aria-hidden="true"></i>
-							</div>
-							<div class="widget-data" style = "padding: 0px 0px 0px 0px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: auto; text-align: center; width: 30%!important;">
-								<div class="h4 mb-0" style = "color: #45A94B; width: 80px; text-align: center;"><?php echo count(query("SELECT * FROM publisher")); ?></div>
-								<div class="weight-600 font-14" style = "color: #45A94B; width: 80px; text-align: center;"><a style = "color: #45A94B;" href = "publisher.php">Publisher</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 mb-30">
-					<div class="card-box height-100-p widget-style1">
-						<div style = "display: flex; height: 80px;">
-							<div class="progress-data" style = "border-right: 1px solid #eaeaea; display: flex; justify-content: center; width: 50%!important;">
-								<i style = "color: #FF3647; display: block; font-size: 50px; margin: auto!important;" class="icon-copy fa fa-user-circle-o" aria-hidden="true"></i>
-							</div>
-							<div class="widget-data" style = "padding: 0px 0px 0px 0px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: auto; text-align: center; width: 30%!important;">
-								<div class="h4 mb-0" style = "color: #FF3647; width: 80px; text-align: center;"><?php echo count(query("SELECT * FROM data_admin")); ?></div>
-								<div class="weight-600 font-14" style = "color: #FF3647; width: 80px; text-align: center;"><a style = "color: #FF3647;" href = "admin.php">Admin</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 mb-30">
-					<div class="card-box height-100-p widget-style1">
-						<div style = "display: flex; height: 80px;">
-							<div class="progress-data" style = "border-right: 1px solid #eaeaea; display: flex; justify-content: center; width: 50%!important;">
-								<i style = "color: #FFD700; display: block; font-size: 50px; margin: auto!important;" class="icon-copy fa fa-user-circle-o" aria-hidden="true"></i>
-							</div>
-							<div class="widget-data" style = "padding: 0px 0px 0px 0px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: auto; text-align: center; width: 30%!important;">
-								<div class="h4 mb-0" style = "color: #FFD700; width: 80px; text-align: center;"><?php echo count(query("SELECT * FROM peminjaman")); ?></div>
-								<div class="weight-600 font-14" style = "color: #FFD700; width: 80px; text-align: center;"><a style = "color: #FFD700;" href = "lending.php">Lending</a></div>
 							</div>
 						</div>
 					</div>
@@ -197,15 +146,5 @@
 	</div>
 	<!-- js -->
 	<?php require 'js.php'; ?>
-  <!-- buttons for Export datatable -->
-	<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-	<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-	<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-	<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-	<!-- Datatable Setting js -->
-	<script src="vendors/scripts/datatable-setting.js"></script>
 </body>
 </html>

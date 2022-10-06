@@ -6,7 +6,7 @@
 		<div class="container-fluid d-flex justify-content-between align-items-center">
 			<div class="brand-logo">
 				<a href="login.php">
-					<img src="assets/img/<?php echo $utama['logo2']; ?>" alt="" width = 55>
+					<img src="assets/img/<?php echo $utama['logo2']; ?>" alt="" width = 60>
 				</a>
 			</div>
 		</div>
@@ -26,7 +26,7 @@
 				<div class="col-md-6 col-lg-5" style = "margin: auto!important;">
 					<div class="login-box bg-white box-shadow border-radius-10" style = "margin: auto!important;">
 						<div class="login-title">
-							<h2 class="text-center text-primary">Aplikasi Kelas</h2>
+							<h2 class="text-center text-primary">Login to Admin - <?php echo $utama['nama']; ?></h2>
 						</div>
 						<form id = "myForm" method = "post" action = "" autocomplete = "off">
 							<div class="input-group custom">
