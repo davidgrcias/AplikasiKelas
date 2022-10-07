@@ -20,33 +20,33 @@ else{
     <div class="sidebar-menu">
       <ul id="accordion-menu">
         <li class="dropdown">
-          <a href="students.php" class="dropdown-toggle no-arrow">
+          <a href="index.php" class="dropdown-toggle no-arrow <?php if ($page == 'index') echo "active"; ?>">
             <span class="micon dw dw-home"></span><span class="mtext">Dashboard</span>
           </a>
         </li>
         <li class="dropdown">
-          <a href="index.php" class="dropdown-toggle no-arrow">
-            <span class="micon dw dw-home"></span><span class="mtext">Student</span>
+          <a href="student.php" class="dropdown-toggle no-arrow <?php if ($page == 'student') echo "active"; ?>">
+            <span class="micon dw dw-user-1"></span><span class="mtext">Student</span>
           </a>
         </li>
         <li class="dropdown">
-          <a href="class.php" class="dropdown-toggle no-arrow">
-            <span class="micon dw dw-home"></span><span class="mtext">Class</span>
-          </a>
-        </li>
-        <li class="dropdown">
-          <a href="textdisplay.php" class="dropdown-toggle no-arrow">
-            <span class="micon dw dw-home"></span><span class="mtext">Text Display</span>
-          </a>
-        </li>
-        <li class="dropdown">
-          <a href="imagedisplay.php" class="dropdown-toggle no-arrow">
-            <span class="micon dw dw-home"></span><span class="mtext">Image Display</span>
+          <a href="class.php" class="dropdown-toggle no-arrow <?php if ($page == 'class') echo "active"; ?>">
+            <span class="micon dw dw-door"></span><span class="mtext">Class</span>
           </a>
         </li>
         <li>
-          <a href="admin.php" class="dropdown-toggle no-arrow">
-            <span class="micon dw dw-diagram"></span><span class="mtext">Admin</span>
+          <a href="admin.php" class="dropdown-toggle no-arrow <?php if ($page == 'admin') echo "active"; ?>">
+            <span class="micon dw dw-user-2"></span><span class="mtext">Admin</span>
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="textdisplay.php" class="dropdown-toggle no-arrow <?php if ($page == 'txtdisplay') echo "active"; ?>">
+            <span class="micon dw dw-text"></span><span class="mtext">Text Display</span>
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="imagedisplay.php" class="dropdown-toggle no-arrow <?php if ($page == 'imgdisplay') echo "active"; ?>">
+            <span class="micon dw dw-image"></span><span class="mtext">Image Display</span>
           </a>
         </li>
       </ul>

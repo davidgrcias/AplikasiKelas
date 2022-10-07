@@ -32,7 +32,7 @@
 	<?php // require 'pre-loader.php'; ?>
 
 	<?php require 'header.php'; ?>
-
+	<?php $page = "class"; ?>
 	<?php require 'left-side-bar.php'; ?>
 
 	<div class="mobile-menu-overlay"></div>
@@ -47,7 +47,7 @@
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="../perpustakaan/">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Class</li>
 								</ol>
 							</nav>
@@ -65,7 +65,6 @@
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Id</th>
 									<th>Class Name</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
@@ -78,7 +77,6 @@
     						<?php foreach($userfull as $user) : ?>
 								<tr id = "<?php echo $user['id']; ?>">
 									<td id = "<?php echo $user['id']; ?>"><?php echo $i; ?></td>
-									<td><?php echo $user["id"]; ?></td>
 									<td id = "namaberita"><?php echo $user["class"]; ?></td>
 									<td id = "<?php echo $user['id']; ?>">
 										<div class="dropdown" id = "<?php echo $user['id']; ?>">

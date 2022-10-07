@@ -9,23 +9,23 @@
     display: flex;
     justify-content: center;
     position: relative;
-    width: 100px;
+    width: 200px;
     margin: auto;
+    border-radius: 50%;
   }
 
   #cont .profil > img{
     border: 6px solid #eaeaea;
     border-radius: 50%;
-    width: 100px;
+    width: 100px!important;
   }
 
   #cont .profil .round{
-    background: #80BDFF;
+    background: #212523;
     width: 32px;
     height: 32px;
     line-height: 32px;
     text-align: center;
-    border-radius: 50%;
     cursor: pointer;
     position: absolute;
     bottom: 0;
@@ -99,7 +99,7 @@
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="students.php">Students</a></li>
+									<li class="breadcrumb-item"><a href="student.php">Student</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Add Student</li>
 								</ol>
 							</nav>
@@ -114,6 +114,78 @@
 							<h4 class="text-blue">Add Student</h4>
 						</div>
 					</div>
+          <div class="row" style = "display: flex; flex-direction: column; align-items: center; text-align: center!important; padding-bottom: 40px;">
+            <div class="col-md-4" id = "cont">
+                <div class="profil">
+                  <form class="myFormmm" enctype="multipart/form-data" id = "myFormmm" action="" method="post" style = "display: flex!important; flex-direction: column; justify-content: center!important; align-items: center!important;">
+                  <?php $gambarr = $utama["studentimage"]; ?>
+                  <input type="hidden" id = "studentimage" name="studentimage" class = "studentimage" value="studentimage">
+                  <img class="mt-3" src="assets/img/student/<?php echo $gambarr; ?>">
+                  <input type="file" class="upload" id = "studentimagefile" name="file" accept=".jpg, .jpeg, .png" capture="camera">
+                  <div class = "round">
+                    <img src="assets/img/camera.png">
+                  </div>
+                  </form>
+                </div>
+            </div>
+          </div>
+          <?php
+          if(isset($_POST["studentimage"])){
+            uploadd();
+          }
+          function uploadd(){
+              global $connt;
+              $namaFile = $_FILES["file"]["name"];
+              $ukuranFile = $_FILES["file"]["size"];
+              $tmpName = $_FILES["file"]["tmp_name"];
+              $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+              $ekstensiGambar = explode('.', $namaFile);
+              $ekstensiGambar = strtolower(end($ekstensiGambar));
+              if ( !in_array($ekstensiGambar, $ekstensiGambarValid) ){
+                echo
+                "
+                <script>
+                  alert('Invalid Image Extension');
+                  document.location.href = 'imagedisplay.php';
+                </script>
+                ";
+                return false;
+              }
+
+              if ($ukuranFile > 1200000){
+                echo
+                "
+                <script>
+                  alert('The Image Size Is Too Large');
+                  document.location.href = 'addstudent.php';
+                </script>
+                ";
+                return false;
+              }
+
+              // generate nama gambar baru
+              $namaFileBaru = uniqid();
+              $namaFileBaru .= '.' . $ekstensiGambar;
+              $query22 = "UPDATE utama SET studentimage = '$namaFileBaru' WHERE id = 1";
+
+              mysqli_query($connt, $query22);
+
+              move_uploaded_file($tmpName, 'assets/img/student/' . $namaFileBaru);
+              echo
+              "
+              <script>
+              document.location.href = 'addstudent.php';
+              </script>
+              ";
+
+              return $namaFileBaru;
+            }
+          ?>
+          <script type="text/javascript">
+            document.getElementById("studentimagefile").onchange = function() {
+                document.getElementById("myFormmm").submit();
+            };
+          </script>
 					<form id = "myForm" method = "post" action = "" autocomplete = "off">
             <div class="form-group row">
 							<label class="col-sm-12 col-md-2 col-form-label">NISN</label>
@@ -166,6 +238,7 @@
         <script type="text/javascript">
           function jadi(){
               $(document).ready(function(){
+                  var studentimage = "<?php echo $utama["studentimage"] ?>";
                   var borndate = document.getElementById('borndate').value;
                   var kelas = document.getElementById('class').value;
                   var email = document.getElementById('email').value;
@@ -175,7 +248,7 @@
                     $.ajax({
                       url: 'function.php',
                       type: 'POST',
-                      data: { borndate:borndate,kelas:kelas,email:email,name:name,nisn:nisn,kode:kode},
+                      data: { studentimage:studentimage,borndate:borndate,kelas:kelas,email:email,name:name,nisn:nisn,kode:kode},
                       success: function(response){
                       if(response == 1){
                         alert('Student Added Successfully!');

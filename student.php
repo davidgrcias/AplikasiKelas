@@ -32,7 +32,7 @@
 	<?php // require 'pre-loader.php'; ?>
 
 	<?php require 'header.php'; ?>
-
+	<?php $page = "student"; ?>
 	<?php require 'left-side-bar.php'; ?>
 
 	<div class="mobile-menu-overlay"></div>
@@ -43,12 +43,12 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>Data Table Students</h4>
+								<h4>Data Table Student</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="../perpustakaan/">Dashboard</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Students</li>
+									<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Student</li>
 								</ol>
 							</nav>
 						</div>
@@ -57,7 +57,7 @@
         <!-- Simple Datatable start -->
 				<div class="card-box mb-30" id = "tableka">
 					<div class="pd-20" style = "display: flex; align-items: center; justify-content: space-between; padding-right: 20px; box-sizing: border-box;">
-						<h4 class="text-blue h4">Data Table Students</h4>
+						<h4 class="text-blue h4">Data Table Student</h4>
 						<a href="addstudent.php" class = "btn btn-success">Add Student</a>
 					</div>
 					<div class="pb-20">
@@ -65,6 +65,7 @@
 							<thead>
 								<tr>
 									<th>#</th>
+									<th>Image</th>
 									<th>NISN</th>
 									<th>Name</th>
 									<th>Email</th>
@@ -81,6 +82,8 @@
     						<?php foreach($userfull as $user) : ?>
 								<tr id = "<?php echo $user['id']; ?>">
 									<td id = "<?php echo $user['id']; ?>"><?php echo $i; ?></td>
+									<?php $studentimage = $user["studentimage"]; ?>
+									<td><img src="assets/img/student/<?php echo $studentimage; ?>"></td>
 									<td><?php echo $user["nisn"]; ?></td>
 									<td id = "namaberita"><?php echo $user["nama"]; ?></td>
 									<td id = "<?php echo $user['id']; ?>"><?php echo $user["email"]; ?></td>

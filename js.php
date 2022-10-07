@@ -1,6 +1,6 @@
 <script src="vendors/scripts/core.js"></script>
-<!-- <script src="vendors/scripts/script.min.js"></script> aaa -->
- <script src="vendors/scripts/process.js"></script> 
+<script src="vendors/scripts/script.min.js"></script> 
+ <script src="vendors/scripts/process.js"></script>
  <script src="vendors/scripts/layout-settings.js"></script>
 <script src="src/plugins/apexcharts/apexcharts.min.js"></script> -->
 <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>

@@ -25,10 +25,9 @@
   }
 </style>
 <body>
-	<?php require 'pre-loader.php'; ?>
-
 	<?php require 'header.php'; ?>
 
+	<?php $page = "admin"; ?>
 	<?php require 'left-side-bar.php'; ?>
 
 	<div class="mobile-menu-overlay"></div>
@@ -43,7 +42,7 @@
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="../perpustakaan/">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Admin</li>
 								</ol>
 							</nav>
@@ -54,14 +53,13 @@
 				<div class="card-box mb-30" id = "tableka">
 					<div class="pd-20" style = "display: flex; align-items: center; justify-content: space-between; padding-right: 20px; box-sizing: border-box;">
 						<h4 class="text-blue h4">Data Table Admin</h4>
-						<a href="addadmin.php" target = "_blank" class = "btn btn-success">Add Admin</a>
+						<a href="addadmin.php" class = "btn btn-success">Add Admin</a>
 					</div>
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap">
 							<thead>
 								<tr>
 									<th>#</th>
-                  <th>Id</th>
 									<th>Email</th>
 									<th>Username</th>
 									<th>Date</th>
@@ -76,7 +74,6 @@
     						<?php foreach($adminfull as $admin) : ?>
 								<tr id = "<?php echo $admin['id']; ?>">
 									<td id = "<?php echo $admin['id']; ?>"><?php echo $i; ?></td>
-                  <td id = "<?php echo $admin['id']; ?>"><?php echo $admin["id"]; ?></td>
 									<td id = "<?php echo $admin['id']; ?>"><?php echo $admin["email"]; ?></td>
 									<td id = "<?php echo $admin['id']; ?>"><?php echo $admin["username"]; ?></td>
 									<td id = "<?php echo $admin['id']; ?>"><?php echo $admin["tanggal"]; ?></td>

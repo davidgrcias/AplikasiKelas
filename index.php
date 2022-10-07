@@ -12,9 +12,9 @@
 	}
 </style>
 <body>
-
+	<?php require 'pre-loader.php'; ?>
 	<?php require 'header.php'; ?>
-
+	<?php $page = "index"; ?>
 	<?php require 'left-side-bar.php'; ?>
 
 	<div class="mobile-menu-overlay"></div>
@@ -30,7 +30,7 @@
 							</div>
 							<div class="widget-data" style = "padding: 0px 0px 0px 0px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: auto; text-align: center; width: 30%!important;">
 								<div class="h4 mb-0" style = "color: #1e90ff; width: 80px; text-align: center;"><?php echo count(query("SELECT * FROM data_user")); ?></div>
-								<div class="weight-600 font-14" style = "color: #1e90ff; width: 80px; text-align: center;"><a style = "color: #1e90ff;" href = "students.php">Students</a></div>
+								<div class="weight-600 font-14" style = "color: #1e90ff; width: 80px; text-align: center;"><a style = "color: #1e90ff;" href = "students.php">Student</a></div>
 							</div>
 						</div>
 					</div>

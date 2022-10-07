@@ -83,7 +83,7 @@
 </style>
 <body>
 	<?php require 'header.php'; ?>
-
+  <?php $page = "imgdisplay"; ?>
 	<?php require 'left-side-bar.php'; ?>
 
 	<div class="mobile-menu-overlay"></div>
@@ -99,7 +99,7 @@
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="../perpustakaan/">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Image Display</li>
 								</ol>
 							</nav>

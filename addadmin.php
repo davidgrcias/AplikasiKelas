@@ -99,7 +99,7 @@
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="../jurnaladmin/admin.php">Admin</a></li>
+									<li class="breadcrumb-item"><a href="admin.php">Admin</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Add Admin</li>
 								</ol>
 							</nav>
@@ -154,7 +154,7 @@
                   var password = document.getElementById('password').value;
                   var kode = "addadmin";
                     $.ajax({
-                      url: '../jurnal/function.php',
+                      url: 'function.php',
                       type: 'POST',
                       data: {username:username,email:email,password:password,kode:kode},
                       success: function(response){

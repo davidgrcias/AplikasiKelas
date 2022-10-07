@@ -350,6 +350,7 @@ function addclass(){
 function addstudent(){
   global $connt;
   $email = strtolower(htmlspecialchars($_POST["email"]));
+  $studentimage = $_POST["studentimage"];
   $nisn = $_POST["nisn"];
   $kelas = $_POST["kelas"];
   $borndate = $_POST["borndate"];
@@ -386,7 +387,7 @@ function addstudent(){
     exit;
   }
 
-  $query = "INSERT INTO data_user VALUES('', '$name', '$email', '$nisn', '$kelas', '$borndate')";
+  $query = "INSERT INTO data_user VALUES('', '$name', '$email', '$nisn', '$kelas', '$borndate', '$studentimage')";
   mysqli_query($connt, $query);
   echo 1;
 }
@@ -450,39 +451,48 @@ function hapusadmin(){
 function editadmin(){
   global $connt;
   $id = $_POST["id"];
-  $email = strtolower(htmlspecialchars($_POST["email"]));
-  $username = strtolower(htmlspecialchars($_POST["username"]));
-  $password = htmlspecialchars($_POST["password"]);
+  $email = strtolower($_POST["email"]);
+  $username = strtolower($_POST["username"]);
+  $password = $_POST["password"];
+  $mainresult = mysqli_fetch_assoc(mysqli_query($connt, "SELECT * FROM data_admin WHERE id = $id"));
+
+  if($mainresult["email"] != $email || $mainresult["username"] != $username){
+    if(empty($username)){
+      echo 4;
+      exit;
+    }
+    if ( !filter_var($email, FILTER_VALIDATE_EMAIL) ){
+      echo 4;
+      exit;
+    }
+
+    $result = mysqli_query($connt, "SELECT * FROM data_admin WHERE email = '$email'");
+    if($mainresult["email"] != $email){
+      if (mysqli_num_rows($result) >= 1){
+        echo 999;
+        exit;
+      }
+    }
+
+    $result2 = mysqli_query($connt, "SELECT * FROM data_admin WHERE username = '$username'");
+    if($mainresult["username"] != $username){
+      if (mysqli_num_rows($result2) >= 1){
+        echo 9999;
+        exit;
+      }
+    }
+
+    $query = "UPDATE data_admin SET email = '$email', username = '$username' WHERE id = $id";
+    mysqli_query($connt, $query);
+    echo 1;
+  }
 
 
-  if(empty($username)){
-    echo 4;
-    exit;
-  }
-  if ( !filter_var($email, FILTER_VALIDATE_EMAIL) ){
-    echo 4;
-    exit;
-  }
-
-  $result = mysqli_query($connt, "SELECT email FROM data_admin WHERE email = '$email'");
-  if (mysqli_num_rows($result) >= 1){
-    echo 999;
-    exit;
-  }
-  $result2 = mysqli_query($connt, "SELECT username FROM data_user WHERE username = '$username'");
-  if (mysqli_num_rows($result2) >= 1){
-    echo 9999;
-    exit;
-  }
-  $query = "UPDATE data_admin SET email = '$email', username = '$username' WHERE id = $id";
-  mysqli_query($connt, $query);
-  echo mysqli_affected_rows($connt);
-
-  if (!empty($password)){
+  if (isset($password)){
     $passwordbaru = password_hash($password, PASSWORD_DEFAULT);
     $query2 = "UPDATE data_admin SET password = '$passwordbaru' WHERE id = $id";
     mysqli_query($connt, $query2);
-    echo mysqli_affected_rows($connt);
+    echo 1;
   }
   else{
 

@@ -115,7 +115,7 @@ if( !isset($_GET["id"]) ){
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="../jurnaladmin/admin.php">Admin</a></li>
+									<li class="breadcrumb-item"><a href="admin.php">Admin</a></li>
 									<li class="breadcrumb-item active" aria-current="page">EditAdmin</li>
 								</ol>
 							</nav>
@@ -176,13 +176,13 @@ if( !isset($_GET["id"]) ){
         <script type="text/javascript">
           function jadi(){
               $(document).ready(function(){
-                  var id = document.getElementById('id').value;
+                  var id = "<?php echo $zilong; ?>";
                   var username = document.getElementById('username').value;
                   var email = document.getElementById('email').value;
                   var password = document.getElementById('password').value;
                   var kode = "editadmin";
                     $.ajax({
-                      url: '../jurnal/function.php',
+                      url: 'function.php',
                       type: 'POST',
                       data: {id:id,username:username,email:email,password:password,kode:kode},
                       success: function(response){

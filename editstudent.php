@@ -17,23 +17,22 @@ if( !isset($_GET["id"]) ){
     display: flex;
     justify-content: center;
     position: relative;
-    width: 100px;
+    width: 200px;
     margin: auto;
   }
 
   #cont .profil > img{
     border: 6px solid #eaeaea;
     border-radius: 50%;
-    width: 100px;
+    width: 100%;
   }
 
   #cont .profil .round{
-    background: #80BDFF;
+    background: #212523;
     width: 32px;
     height: 32px;
     line-height: 32px;
     text-align: center;
-    border-radius: 50%;
     cursor: pointer;
     position: absolute;
     bottom: 0;
@@ -96,7 +95,7 @@ if( !isset($_GET["id"]) ){
   $yujao = mysqli_query($connt, "SELECT * FROM data_user WHERE id = '$zilong'");
 
   if(mysqli_num_rows($yujao) == 0){
-    header("Location: students.php");
+    header("Location: student.php");
   }?>
 	<?php require 'header.php'; ?>
 
@@ -115,7 +114,7 @@ if( !isset($_GET["id"]) ){
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="students.php">Students</a></li>
+									<li class="breadcrumb-item"><a href="student.php">Student</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Edit Student</li>
 								</ol>
 							</nav>
@@ -134,6 +133,79 @@ if( !isset($_GET["id"]) ){
 							<h4 class="text-blue"><?php echo $userdone["nama"]; ?><span style = "color: black!important;">'s Profile</span></h4>
 						</div>
 					</div>
+          <div class="row" style = "display: flex; flex-direction: column; align-items: center; text-align: center!important; padding-bottom: 40px;">
+            <div class="col-md-4" id = "cont">
+                <div class="profil">
+                  <form class="myFormmm" enctype="multipart/form-data" id = "myFormmm" action="" method="post" style = "display: flex!important; flex-direction: column; justify-content: center!important; align-items: center!important;">
+                  <?php $gambarr = $userdone["studentimage"]; ?>
+                  <input type="hidden" id = "studentimage" name="studentimage" class = "studentimage" value="studentimage">
+                  <img class="mt-3" src="assets/img/student/<?php echo $gambarr; ?>">
+                  <input type="file" class="upload" id = "studentimagefile" name="file" accept=".jpg, .jpeg, .png" capture="camera">
+                  <div class = "round">
+                    <img src="assets/img/camera.png">
+                  </div>
+                  </form>
+                </div>
+            </div>
+          </div>
+          <?php
+          if(isset($_POST["studentimage"])){
+            uploadd();
+          }
+          function uploadd(){
+              global $connt;
+              global $zilong;
+              $namaFile = $_FILES["file"]["name"];
+              $ukuranFile = $_FILES["file"]["size"];
+              $tmpName = $_FILES["file"]["tmp_name"];
+              $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+              $ekstensiGambar = explode('.', $namaFile);
+              $ekstensiGambar = strtolower(end($ekstensiGambar));
+              if ( !in_array($ekstensiGambar, $ekstensiGambarValid) ){
+                echo
+                "
+                <script>
+                  alert('Invalid Image Extension');
+                  document.location.href = 'editstudent.php?id=$zilong';
+                </script>
+                ";
+                return false;
+              }
+
+              if ($ukuranFile > 1200000){
+                echo
+                "
+                <script>
+                  alert('The Image Size Is Too Large');
+                  document.location.href = 'editstudent.php?id=$zilong';
+                </script>
+                ";
+                return false;
+              }
+
+              // generate nama gambar baru
+              $namaFileBaru = uniqid();
+              $namaFileBaru .= '.' . $ekstensiGambar;
+              $query22 = "UPDATE data_user SET studentimage = '$namaFileBaru' WHERE id = '$zilong'";
+
+              mysqli_query($connt, $query22);
+
+              move_uploaded_file($tmpName, 'assets/img/student/' . $namaFileBaru);
+              echo
+              "
+              <script>
+              document.location.href = 'editstudent.php?id=$zilong';
+              </script>
+              ";
+
+              return $namaFileBaru;
+            }
+          ?>
+          <script type="text/javascript">
+            document.getElementById("studentimagefile").onchange = function() {
+                document.getElementById("myFormmm").submit();
+            };
+          </script>
 					<form id = "myForm" method = "post" action = "" autocomplete = "off">
 						<div class="form-group row">
               <input type="hidden" name="oldnisn" id = "oldnisn" value="<?php echo $userdone['nisn']; ?>">
