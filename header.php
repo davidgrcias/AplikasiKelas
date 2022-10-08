@@ -45,22 +45,21 @@ $tanggal = date('d') . ' ' . date('F') . ' ' . date('Y');
     width: 30%!important;
   }
 </style>
+<?php
+  $datehour = date("d-m-Y H:i:s");
+?>
 <script type="text/javascript">
-  function startTime() {
-    const today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    $('#txt').text(date + " " + h + ":" + m + ":" + s);
-    setTimeout(startTime, 1000);
-  }
-
-  function checkTime(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
+    setInterval(function(){
+      datehour();
+    }, 1);
+  function datehour() {
+    var currentdate = new Date();
+    $('#txt').text(currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/"
+                + currentdate.getFullYear() + " "
+                + " " + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds());
   }
 </script>
 <div class="header" id = "header">

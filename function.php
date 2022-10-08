@@ -354,7 +354,14 @@ function addstudent(){
   $nisn = $_POST["nisn"];
   $kelas = $_POST["kelas"];
   $borndate = $_POST["borndate"];
-  $name = ucwords(strtolower( htmlspecialchars($_POST["name"]) ), " \.");
+  $name = $_POST["name"];
+  $religion = $_POST["religion"];
+  $phonenumber = $_POST["phonenumber"];
+
+  $today = date("d-m-Y");
+  $diff = date_diff(date_create($borndate), date_create($today));
+  $age = $diff->format('%y');
+
   if(empty($nisn)){
     echo 4;
     exit;
@@ -368,6 +375,14 @@ function addstudent(){
     exit;
   }
   if(empty($borndate)){
+    echo 4;
+    exit;
+  }
+  if(empty($religion)){
+    echo 4;
+    exit;
+  }
+  if(empty($phonenumber)){
     echo 4;
     exit;
   }
@@ -387,7 +402,7 @@ function addstudent(){
     exit;
   }
 
-  $query = "INSERT INTO data_user VALUES('', '$name', '$email', '$nisn', '$kelas', '$borndate', '$studentimage')";
+  $query = "INSERT INTO data_user VALUES('', '$name', '$email', '$nisn', '$kelas', '$borndate', '$studentimage', '$phonenumber', '$religion', '$age')";
   mysqli_query($connt, $query);
   echo 1;
 }
@@ -991,6 +1006,11 @@ function editstudent(){
   $kelas = $_POST["kelas"];
   $oldnisn = $_POST["oldnisn"];
   $oldemail = $_POST["oldemail"];
+  $religion = $_POST["religion"];
+  $phonenumber = $_POST["phonenumber"];
+  $today = date("d-m-Y");
+  $diff = date_diff(date_create($borndate), date_create($today));
+  $age = $diff->format('%y');
   if(empty($name)){
     echo 4;
     exit;
@@ -1011,6 +1031,14 @@ function editstudent(){
     echo 4;
     exit;
   }
+  if(empty($religion)){
+    echo 4;
+    exit;
+  }
+  if(empty($phonenumber)){
+    echo 4;
+    exit;
+  }
   if($email != $oldemail){
     $result = mysqli_query($connt, "SELECT * FROM data_user WHERE email = '$email'");
     if (mysqli_num_rows($result) >= 1){
@@ -1025,7 +1053,7 @@ function editstudent(){
       exit;
     }
   }
-  $query = "UPDATE data_user SET nama = '$name', email = '$email', nisn = '$nisn', kelas = $kelas, tanggallahir = '$borndate' WHERE id = $id";
+  $query = "UPDATE data_user SET nama = '$name', email = '$email', nisn = '$nisn', kelas = $kelas, tanggallahir = '$borndate', phonenumber = '$phonenumber', religion = '$religion', age = '$age' WHERE id = $id";
   mysqli_query($connt, $query);
   echo mysqli_affected_rows($connt);
 }

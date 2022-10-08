@@ -12,7 +12,7 @@
 	}
 </style>
 <body>
-	<?php require 'pre-loader.php'; ?>
+	<?php // require 'pre-loader.php'; ?>
 	<?php require 'header.php'; ?>
 	<?php $page = "index"; ?>
 	<?php require 'left-side-bar.php'; ?>
@@ -49,102 +49,288 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-box mb-30" id = "tableka">
-				<div class="flexut" style = "display: flex; align-items: center; justify-content: space-between; padding-right: 20px;">
-					<h2 class="h4 pd-20">20 Recent Students</h2>
-					<a href="addstudent.php" class = "btn btn-success">Add Student</a>
-				</div>
-				<table class="data-table table nowrap">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>NISN</th>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Born Date</th>
-							<th>Class</th>
-							<th class="datatable-nosort">Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							$userfull = query("SELECT * FROM data_user ORDER BY id DESC LIMIT 20");
-							$i = 1;
-						?>
-						<?php foreach($userfull as $user) : ?>
-						<tr id = "<?php echo $user['id']; ?>">
-							<td><?php echo $i; ?></td>
-							<td><?php echo $user["nisn"]; ?></td>
-							<td>
-								<!-- <h5 class="font-16">Shirt</h5> -->
-								<?php echo $user["nama"]; ?>
-							</td>
-							<td><?php echo $user["email"]; ?></td>
-							<td><?php echo $user["tanggallahir"]; ?></td>
-							<td>
-							<?php
-							$idkelas = $user["kelas"];
-							$hayolok = mysqli_fetch_assoc(mysqli_query($connt, "SELECT * FROM class WHERE id = $idkelas"));
-							echo $hayolok["class"];
-							?>
-							</td>
-							<td>
-								<div class="dropdown">
-									<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-										<i class="dw dw-more"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-										<a class="dropdown-item" href="editstudent.php?id=<?php echo $user['id']; ?>"><i class="dw dw-edit2"></i> Edit</a>
-										<div style = "cursor: pointer;" class="dropdown-item" onclick = "deleteaccountadmin(<?php echo $user['id']; ?>);"><i class="dw dw-delete-3"></i> Delete</div>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<?php $i++; ?>
-						<?php endforeach; ?>
+			<style media="screen">
 
-						<script type="text/javascript">
-							function deleteaccountadmin(iduser){
-									$(document).ready(function(){
-											var deleteid = iduser;
-											var kode = "hapusstudent";
-											<?php if($admin["notif"] == "y") : ?>
-											var confirmalert = confirm("Are You Sure You Want To Delete This Student?");
-											<?php else : ?>
-											var confirmalert = true;
-											<?php endif; ?>
-											if (confirmalert == true){
-												$.ajax({
-													url: 'function.php',
-													type: 'POST',
-													data: {deleteid:deleteid,kode:kode},
-													success: function(response){
-													if(response == 1){
-														<?php if($admin["notif"] == "y") : ?>
-														alert('Student Deleted Successfully');
-														<?php endif; ?>
-														document.getElementById(deleteid).style.display = "none";
-													}else if(response == 99){
-														 alert('You Have Reached The Limit For Reply To This Comment');
-													 }else if(response == 999){
-														 alert('Email Is Already Taken');
-													 }else if(response == 9999){
-															 alert('Username Is Already Taken');
-														 }else{
-													 }
-													}
-												});
-											}
-									});
-							}
-						</script>
-					</tbody>
-				</table>
+			</style>
+			<div class="row" style = "background: white; margin-bottom: 30px;">
+				<div class="col-md-12">
+					<p style = "margin-top: 10px; margin-bottom: 5px; padding-bottom: 0px;" align = center>Number of Students in Each Class</p>
+					<canvas id="myChart" style="width:100%;"></canvas>
+				</div>
+				<div class="col-md-12">
+					<p style = "margin-top: 10px; margin-bottom: 5px; padding-bottom: 0px;" align = center>Age of Students in Each Class</p>
+					<canvas id="myChart4" style="width:100%;"></canvas>
+				</div>
+				<div class="col-md-12">
+					<p style = "margin-top: 10px; margin-bottom: 5px; padding-bottom: 0px;" align = center>Religion of Students in Each Class</p>
+					<canvas id="myChart2" style="width:100%;"></canvas>
+				</div>
+				<div class="col-md-6">
+					<p style = "margin-top: 10px; margin-bottom: 5px; padding-bottom: 0px;" align = center>Religion of Students</p>
+					<canvas id="myChart3" style="width:100%;"></canvas>
+				</div>
+				<div class="col-md-6">
+					<p style = "margin-top: 10px; margin-bottom: 5px; padding-bottom: 0px;" align = center>Age of Students</p>
+					<canvas id="myChart5" style="width:100%;"></canvas>
+				</div>
 			</div>
 			<?php require 'footer-wrap.php'; ?>
 		</div>
 	</div>
 	<!-- js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	<script>
+		<?php
+		$classes = mysqli_query($connt, "SELECT * FROM class");
+    foreach($classes as $class){
+			$eachclass[] = $class["class"];
+			$classid = $class["id"];
+			$countclasses[] = count(query("SELECT * FROM data_user WHERE kelas = $classid"));
+
+			$countregbuddha[] = count(query("SELECT * FROM data_user WHERE kelas = $classid && religion = 'Buddha'"));
+			$countregislam[] = count(query("SELECT * FROM data_user WHERE kelas = $classid && religion = 'Islam'"));
+			$countregchristian[] = count(query("SELECT * FROM data_user WHERE kelas = $classid && religion = 'Christian'"));
+			$countreghindu[] = count(query("SELECT * FROM data_user WHERE kelas = $classid && religion = 'Hindu'"));
+			$countregconfucianism[] = count(query("SELECT * FROM data_user WHERE kelas = $classid && religion = 'Confucianism'"));
+		}
+
+		$noclasscountregbuddha = count(query("SELECT * FROM data_user WHERE religion = 'Buddha'"));
+		$noclasscountregchristian = count(query("SELECT * FROM data_user WHERE religion = 'Christian'"));
+		$noclasscountregislam = count(query("SELECT * FROM data_user WHERE religion = 'Islam'"));
+		$noclasscountreghindu = count(query("SELECT * FROM data_user WHERE religion = 'Hindu'"));
+		$noclasscountregconfucianism = count(query("SELECT * FROM data_user WHERE religion = 'Confucianism'"));
+
+		$noclasscount = "$noclasscountregbuddha" . "," . "$noclasscountregislam" . "," . "$noclasscountreghindu" . "," . "$noclasscountregchristian" . "," . "$noclasscountregconfucianism";
+
+		$noclasscount_arr = array_map('intval', explode(',', $noclasscount));
+		?>
+
+		<?php
+		$listofstudents = mysqli_query($connt, "SELECT * FROM data_user");
+		$listofstudentscount = count(query("SELECT * FROM data_user"));
+
+		foreach($listofstudents as $listofstudent){
+			$ageestudent = $listofstudent['age'];
+
+			if(!empty($listofstudentageraw)){
+				if(in_array($ageestudent, $listofstudentageraw)) {
+				  $ageestudent = "";
+				}
+			}
+
+			$listofstudentageraw[] = $ageestudent;
+		}
+
+		?>
+		// $array = array_unique($array); supaya tidak ada yang duplikat, sebenarnya bisa pake ini
+
+		<?php $hei = array_map('intval', array_filter($listofstudentageraw)); ?>// convert string array to int array
+		var listofstudentage = <?php echo json_encode(sort($hei));  ?>;
+
+		var noclasscount_arr = <?php echo json_encode($noclasscount_arr); ?>;
+		var countregbuddha = <?php echo json_encode($countregbuddha); ?>;
+		var countregislam = <?php echo json_encode($countregislam); ?>;
+		var countregchristian = <?php echo json_encode($countregchristian); ?>;
+		var countreghindu = <?php echo json_encode($countreghindu); ?>;
+		var countregconfucianism = <?php echo json_encode($countregconfucianism); ?>;
+
+		var countclasses = <?php echo json_encode($countclasses); ?>;
+		var eachclass = <?php echo json_encode($eachclass); ?>;
+		var colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
+		  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+		  '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
+		  '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+		  '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC',
+		  '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+		  '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680',
+		  '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+		  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
+		  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+		var xValues = eachclass;
+		var yValues = countclasses;
+		var barColors = colorArray;
+		<?php
+		$colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
+		  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+		  '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
+		  '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+		  '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC',
+		  '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+		  '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680',
+		  '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+		  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
+		  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+			$colorArray2 = ['aqua', 'chartreuse', 'indianred', 'black', 'purple', 'blue', 'pink', 'orange', 'grey', 'red', 'green', 'yellow', 'teal'];
+		?>
+		yValuesMax = Math.max(...countclasses);
+
+		new Chart("myChart", {
+		  type: "bar",
+		  data: {
+		    labels: xValues,
+				datasets: [{
+		      backgroundColor: barColors,
+		      data: yValues
+		    }]
+			},
+		  options: {
+		    legend: {display: false},
+		    title: {
+		      display: false,
+		      text: "Religion of Student in Each Class",
+					padding: 0
+		    },
+                scales: {
+                    xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                            }
+                        }],
+                    yAxes: [{
+                            display: true,
+                            ticks: {
+                                beginAtZero: true,
+                                max: yValuesMax,
+                            }
+                        }]
+                }
+		  }
+		});
+	</script>
+
+	<script>
+	var xValues2 = eachclass;
+
+	new Chart("myChart2", {
+	  type: "line",
+	  data: {
+	    labels: xValues2,
+	    datasets: [{
+	      data: countregbuddha,
+	      borderColor: "yellow",
+	      fill: false,
+				pointStyle: 'circle',
+				pointRadius: 10,
+      	pointHoverRadius: 15,
+				label: 'Buddha'
+	    }, {
+	      data: countregislam,
+	      borderColor: "green",
+	      fill: false,
+				pointStyle: 'circle',
+				pointRadius: 10,
+      	pointHoverRadius: 15,
+				label: 'Islam'
+	    }, {
+	      data: countregchristian,
+	      borderColor: "black",
+	      fill: false,
+				pointStyle: 'circle',
+				pointRadius: 10,
+      	pointHoverRadius: 15,
+				label: 'Christian'
+	    },
+			{
+	      data: countreghindu,
+	      borderColor: "purple",
+	      fill: false,
+				pointStyle: 'circle',
+				pointRadius: 10,
+      	pointHoverRadius: 15,
+				label: 'Hindu'
+	    },
+			{
+	      data: countregconfucianism,
+	      borderColor: "red",
+	      fill: false,
+				pointStyle: 'circle',
+				pointRadius: 10,
+      	pointHoverRadius: 15,
+				label: 'Confucianism'
+	    }]
+	  },
+	  options: {
+	    legend: {display: true}
+	  }
+	});
+
+	var xValues3 = ["Buddha", "Islam", "Hindu", "Christian", "Confucianism"];
+	var barColors = [
+	  "yellow",
+	  "green",
+	  "purple",
+	  "black",
+	  "red"
+	];
+
+	new Chart("myChart3", {
+	  type: "pie",
+	  data: {
+	    labels: xValues3,
+	    datasets: [{
+	      backgroundColor: barColors,
+	      data: noclasscount_arr
+	    }]
+	  },
+	  options: {
+	    title: {
+	      display: false,
+	      text: "World Wide Wine Production 2018"
+	    }
+	  }
+	});
+
+
+	new Chart("myChart4", {
+	  type: "line",
+	  data: {
+	    labels: xValues,
+	    datasets: [
+				<?php $classes2 = mysqli_query($connt, "SELECT * FROM class"); ?>
+				<?php $o = 0; foreach($hei as $hi) : ?>
+				<?php $agefromeachclass = [];  ?>
+				<?php $ageschool[] = count(query("SELECT * FROM data_user WHERE age = $hi")); ?>
+				{
+					<?php
+			    foreach($classes2 as $class2){
+						$class2id = $class2["id"];
+						$agefromeachclass[] = count(query("SELECT * FROM data_user WHERE kelas = $class2id && age = $hi"));
+					}
+					?>
+					<?php $fixminus = $o; ?>
+	      data: <?php echo json_encode($agefromeachclass); ?>,
+	      borderColor: "<?php echo $colorArray2[$fixminus]; ?>",
+	      fill: false,
+				pointStyle: 'circle',
+				pointRadius: 10,
+      	pointHoverRadius: 15,
+				label: '<?php echo $hi; ?>'
+	    }, <?php $o++; ?><?php endforeach; ?>
+		]
+	  },
+	  options: {
+	    legend: {display: true}
+	  }
+	});
+
+	new Chart("myChart5", {
+	  type: "pie",
+	  data: {
+	    labels: <?php echo json_encode($hei); ?>,
+	    datasets: [{
+	      backgroundColor: <?php echo json_encode($colorArray2); ?>,
+	      data: <?php echo json_encode($ageschool); ?>
+	    }]
+	  },
+	  options: {
+	    title: {
+	      display: false,
+	      text: "World Wide Wine Production 2018"
+	    }
+	  }
+	});
+</script>
 	<?php require 'js.php'; ?>
 </body>
 </html>

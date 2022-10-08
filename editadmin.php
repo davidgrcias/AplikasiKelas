@@ -188,7 +188,6 @@ if( !isset($_GET["id"]) ){
                       success: function(response){
                       if(response == 1){
                         alert('Successfully Changed!');
-                        window.location.reload();
                       }else if(response == 99){
           	             alert('Password Does Not Match');
                        }else if(response == 999){

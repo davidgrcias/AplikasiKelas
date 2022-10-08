@@ -69,7 +69,9 @@
 									<th>NISN</th>
 									<th>Name</th>
 									<th>Email</th>
+									<th>Phone Number</th>
 									<th>Born Date</th>
+									<th>Religion</th>
 									<th>Class</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
@@ -87,7 +89,9 @@
 									<td><?php echo $user["nisn"]; ?></td>
 									<td id = "namaberita"><?php echo $user["nama"]; ?></td>
 									<td id = "<?php echo $user['id']; ?>"><?php echo $user["email"]; ?></td>
+									<td><?php echo $user["phonenumber"]; ?></td>
 									<td><?php echo $user["tanggallahir"]; ?></td>
+									<td><?php echo $user["religion"]; ?></td>
 									<td>
 										<?php
 										$idkelas = $user["kelas"];

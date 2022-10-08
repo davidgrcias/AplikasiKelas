@@ -206,9 +206,28 @@
 							</div>
 						</div>
             <div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label">Phone Number</label>
+							<div class="col-sm-12 col-md-10">
+								<input required type="text" class="form-control" id = "phonenumber" name = "phonenumber" maxlength="39" spellcheck="false">
+							</div>
+						</div>
+            <div class="form-group row">
 							<label class="col-sm-12 col-md-2 col-form-label">Born Date</label>
 							<div class="col-sm-12 col-md-10">
 								<input required type="date" class="form-control" id = "borndate" name = "borndate" maxlength="39" spellcheck="false">
+							</div>
+						</div>
+            <div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label">Religion</label>
+							<div class="col-sm-12 col-md-10">
+								<select name = "religion" id = "religion" class="custom-select col-12" required>
+									<option value = "" selected hidden>Choose...</option>
+									<option value="Islam">Islam</option>
+                  <option value="Christian">Christian</option>
+                  <option value="Buddha">Buddha</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Confucianism">Confucianism</option>
+								</select>
 							</div>
 						</div>
             <?php $pol = query("SELECT * FROM class"); ?>
@@ -244,24 +263,23 @@
                   var email = document.getElementById('email').value;
                   var name = document.getElementById('name').value;
                   var nisn = document.getElementById('nisn').value;
+                  var phonenumber = document.getElementById('phonenumber').value;
+                  var religion = document.getElementById('religion').value;
                   var kode = "addstudent";
                     $.ajax({
                       url: 'function.php',
                       type: 'POST',
-                      data: { studentimage:studentimage,borndate:borndate,kelas:kelas,email:email,name:name,nisn:nisn,kode:kode},
+                      data: { phonenumber:phonenumber,religion:religion,studentimage:studentimage,borndate:borndate,kelas:kelas,email:email,name:name,nisn:nisn,kode:kode},
                       success: function(response){
                       if(response == 1){
                         alert('Student Added Successfully!');
-                        window.location.reload();
                       }else if(response == 99){
           	             alert('Password Does Not Match');
                        }else if(response == 999){
            	             alert('Email Is Already Taken');
                        }else if(response == 9999){
             	             alert('NISN Is Already Taken');
-                         }else{
-
-                       }
+                         }
                       }
                     });
               });

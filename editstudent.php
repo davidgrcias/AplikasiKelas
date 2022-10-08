@@ -229,9 +229,29 @@ if( !isset($_GET["id"]) ){
 							</div>
 						</div>
             <div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label">Phone Number</label>
+							<div class="col-sm-12 col-md-10">
+								<input value = "<?php echo $userdone['phonenumber']; ?>" required type="text" class="form-control" id = "phonenumber" name = "phonenumber" maxlength="39" spellcheck="false">
+							</div>
+						</div>
+            <div class="form-group row">
 							<label class="col-sm-12 col-md-2 col-form-label">Born Date</label>
 							<div class="col-sm-12 col-md-10">
 								<input value = "<?php echo $userdone['tanggallahir']; ?>" required type="date" class="form-control" id = "borndate" name = "borndate" maxlength="39" spellcheck="false">
+							</div>
+						</div>
+            <?php $student = mysqli_fetch_assoc(mysqli_query($connt, "SELECT * FROM data_user WHERE id = $get_id")); ?>
+            <div class="form-group row">
+							<label class="col-sm-12 col-md-2 col-form-label">Religion</label>
+							<div class="col-sm-12 col-md-10">
+								<select name = "religion" id = "religion" class="custom-select col-12" required>
+									<option value = "" selected hidden>Choose...</option>
+									<option value="Islam" <?= ($student["religion"] == "Islam") ? "selected" : "" ?>>Islam</option>
+                  <option value="Christian" <?= ($student["religion"] == "Christian") ? "selected" : "" ?>>Christian</option>
+                  <option value="Buddha" <?= ($student["religion"] == "Buddha") ? "selected" : "" ?>>Buddha</option>
+                  <option value="Hindu" <?= ($student["religion"] == "Hindu") ? "selected" : "" ?>>Hindu</option>
+                  <option value="Confucianism" <?= ($student["religion"] == "Confucianism") ? "selected" : "" ?>>Confucianism</option>
+								</select>
 							</div>
 						</div>
             <?php $z = mysqli_fetch_assoc(mysqli_query($connt, "SELECT * FROM data_user WHERE id = $get_id")); ?>
@@ -273,18 +293,18 @@ if( !isset($_GET["id"]) ){
                   var kelas = document.getElementById('class').value;
                   var oldemail = document.getElementById('oldemail').value;
                   var oldnisn = document.getElementById('oldnisn').value;
+                  var religion = document.getElementById('religion').value;
+                  var phonenumber = document.getElementById('phonenumber').value;
                   var kode = "editstudent";
                     $.ajax({
                       url: 'function.php',
                       type: 'POST',
-                      data: {oldemail:oldemail,oldnisn:oldnisn,id:id,name:name,nisn:nisn,email:email,borndate:borndate,kelas:kelas,kode:kode},
+                      data: {religion:religion,phonenumber:phonenumber,oldemail:oldemail,oldnisn:oldnisn,id:id,name:name,nisn:nisn,email:email,borndate:borndate,kelas:kelas,kode:kode},
                       success: function(response){
                       if(response == 1){
                         alert('Student Has Been Updated');
-                        window.location.reload();
                       }else if(response == 11){
                          alert('Student Has Been Updated');
-                         window.location.reload();
                        }else if(response == 99){
                          alert('Password Does Not Match');
                        }else if(response == 999){
