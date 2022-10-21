@@ -69,7 +69,6 @@ $tanggal = date('d') . ' ' . date('F') . ' ' . date('Y');
     <div class="header-search">
       <form>
         <div class="form-group mb-0">
-          <h5 style = "text-align: center;" id = "dati"></h5>
           <h5 style = "text-align: center;" id = "txt"></h5>
         </div>
       </form>

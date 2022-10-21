@@ -7,8 +7,17 @@ if(!empty($_POST["kode"])){
   if($_POST["kode"] == "editstudent"){
     editstudent();
   }
+  if($_POST["kode"] == "editlessonschedule"){
+    editlessonschedule();
+  }
   elseif($_POST["kode"] == "comment"){
     comment();
+  }
+  elseif($_POST["kode"] == "addlessonschedule"){
+    addlessonschedule();
+  }
+  elseif($_POST["kode"] == "deletelessonschedule"){
+    deletelessonschedule();
   }
   elseif($_POST["kode"] == "hapusclass"){
     hapusclass();
@@ -121,6 +130,60 @@ if(!empty($_POST["kode"])){
   elseif($_POST["kode"] == "editlending"){
     editlending();
   }
+}
+
+function addlessonschedule(){
+  global $connt;
+
+  $name = $_POST["name"];
+  $day = $_POST["day"];
+  $timestart = $_POST["timestart"];
+  $timeend = $_POST["timeend"];
+  $class = $_POST["kelas"];
+
+  if(empty($name) || empty($day) || empty($timestart) || empty($timeend) || empty($class)){
+    echo 4;
+    exit;
+  }
+
+  $result = mysqli_query($connt, "SELECT * FROM lessonschedule WHERE class = '$class' && timestart = '$timestart'");
+  if (mysqli_num_rows($result) >= 1){
+    echo 4;
+    exit;
+  }
+
+  $query = "INSERT INTO lessonschedule VALUES('', '$name', '$day', '$timestart', '$timeend', '$class')";
+  mysqli_query($connt, $query);
+  echo 1;
+}
+
+function editlessonschedule(){
+  global $connt;
+
+  $id = $_POST["id"];
+  $name = $_POST["name"];
+  $day = $_POST["day"];
+  $timestart = $_POST["timestart"];
+  $timeend = $_POST["timeend"];
+  $class = $_POST["kelas"];
+
+  if(empty($name) || empty($day) || empty($timestart) || empty($timeend) || empty($class)){
+    echo 4;
+    exit;
+  }
+
+  $query = "UPDATE lessonschedule SET name = '$name', day = '$day', timestart = '$timestart', timeend = '$timeend', class = '$class' WHERE id = $id";
+  mysqli_query($connt, $query);
+  echo mysqli_affected_rows($connt);
+}
+
+function deletelessonschedule(){
+  global $connt;
+
+  $deleteid = $_POST["deleteid"];
+  $query = "DELETE FROM lessonschedule WHERE id = $deleteid";
+  mysqli_query($connt, $query);
+  echo 1;
 }
 
 function editlending(){

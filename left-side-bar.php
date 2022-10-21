@@ -34,6 +34,12 @@ else{
             <span class="micon dw dw-door"></span><span class="mtext">Class</span>
           </a>
         </li>
+        <li class="dropdown">
+          <a href="lessonschedule.php" class="dropdown-toggle no-arrow <?php if ($page == 'lessonschedule') echo "active"; ?>">
+            <span class="micon dw dw-book"></span><span class="mtext">Lesson Schedule</span>
+          </a>
+        </li>
+        <li>
         <li>
           <a href="admin.php" class="dropdown-toggle no-arrow <?php if ($page == 'admin') echo "active"; ?>">
             <span class="micon dw dw-user-2"></span><span class="mtext">Admin</span>

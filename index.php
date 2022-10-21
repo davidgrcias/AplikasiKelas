@@ -30,7 +30,7 @@
 							</div>
 							<div class="widget-data" style = "padding: 0px 0px 0px 0px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: auto; text-align: center; width: 30%!important;">
 								<div class="h4 mb-0" style = "color: #1e90ff; width: 80px; text-align: center;"><?php echo count(query("SELECT * FROM data_user")); ?></div>
-								<div class="weight-600 font-14" style = "color: #1e90ff; width: 80px; text-align: center;"><a style = "color: #1e90ff;" href = "students.php">Student</a></div>
+								<div class="weight-600 font-14" style = "color: #1e90ff; width: 80px; text-align: center;"><a style = "color: #1e90ff;" href = "student.php">Student</a></div>
 							</div>
 						</div>
 					</div>
@@ -160,7 +160,7 @@
 		  '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
 		  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
 		  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
-			$colorArray2 = ['aqua', 'chartreuse', 'indianred', 'black', 'purple', 'blue', 'pink', 'orange', 'grey', 'red', 'green', 'yellow', 'teal'];
+		$colorArray2 = ['aqua', 'chartreuse', 'indianred', 'black', 'purple', 'blue', 'pink', 'orange', 'grey', 'red', 'green', 'yellow', 'teal'];
 		?>
 		yValuesMax = Math.max(...countclasses);
 
@@ -177,24 +177,17 @@
 		    legend: {display: false},
 		    title: {
 		      display: false,
-		      text: "Religion of Student in Each Class",
 					padding: 0
 		    },
-                scales: {
-                    xAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                            }
-                        }],
-                    yAxes: [{
-                            display: true,
-                            ticks: {
-                                beginAtZero: true,
-                                max: yValuesMax,
-                            }
-                        }]
-                }
+      scales: {
+        yAxes: [{
+          display: true,
+          ticks: {
+            beginAtZero: true,
+            max: yValuesMax,
+          }
+        }]
+       }
 		  }
 		});
 	</script>

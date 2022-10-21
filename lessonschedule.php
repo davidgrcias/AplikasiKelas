@@ -24,20 +24,15 @@
 		margin-top: 10px!important;
   }
 	#namaberita{
-    max-width: 90px!important;
+    max-width: 120px!important;
     white-space: normal!important;
-		white-space: pre-wrap!important;      /* CSS3 */
-	  white-space: -moz-pre-wrap!important; /* Firefox */
-	  white-space: -pre-wrap;     /* Opera <7 */
-	  white-space: -o-pre-wrap!important;   /* Opera 7 */
-	  word-wrap: break-word!important;      /* IE */
   }
 </style>
 <body>
 	<?php // require 'pre-loader.php'; ?>
 
 	<?php require 'header.php'; ?>
-	<?php $page = "student"; ?>
+	<?php $page = "lessonschedule"; ?>
 	<?php require 'left-side-bar.php'; ?>
 
 	<div class="mobile-menu-overlay"></div>
@@ -48,108 +43,81 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-12">
 							<div class="title">
-								<h4>Data Table Student</h4>
+								<h4>Data Table Lesson Schedule</h4>
 							</div>
 							<nav aria-label="breadcrumb" role="navigation">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Student</li>
+									<li class="breadcrumb-item active" aria-current="page">Lesson Schedule</li>
 								</ol>
 							</nav>
 						</div>
 					</div>
 				</div>
+
+        <a href="addlessonschedule.php" class = "btn btn-success" style = "margin-bottom: 30px;">Add Lesson Schedule</a>
         <!-- Simple Datatable start -->
+				<?php
+					$classes = mysqli_query($connt, "SELECT * FROM class ORDER BY id ASC");
+				?>
+				<?php foreach($classes as $clas) : ?>
 				<div class="card-box mb-30" id = "tableka">
 					<div class="pd-20" style = "display: flex; align-items: center; justify-content: space-between; padding-right: 20px; box-sizing: border-box;">
-						<h4 class="text-blue h4">Data Table Student</h4>
-						<a href="addstudent.php" class = "btn btn-success">Add Student</a>
+						<h4 class="text-blue h4">Data Table Lesson Schedule <?php echo $clas["class"]; ?></h4>
 					</div>
 					<div class="pb-20">
+
+						<?php $clasid = $clas["id"]; ?>
 						<table class="data-table table stripe hover nowrap">
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Image</th>
-									<th>NISN</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th>Phone Number</th>
-									<th>Born Date</th>
-									<th>Age</th>
-									<th>Religion</th>
-									<th>Class</th>
+									<th>Lesson Name</th>
+									<th>Day</th>
+									<th>Time Start</th>
+									<th>Time End</th>
 									<th class="datatable-nosort">Action</th>
 								</tr>
 							</thead>
 							<tbody>
                 <?php
-    							$userfull = query("SELECT * FROM data_user ORDER BY id DESC");
+    							$userfull = query("SELECT * FROM lessonschedule WHERE class = '$clasid' ORDER BY day ASC, timestart ASC");
 									$i = 1;
     						?>
     						<?php foreach($userfull as $user) : ?>
 								<tr id = "<?php echo $user['id']; ?>">
 									<td id = "<?php echo $user['id']; ?>"><?php echo $i; ?></td>
-									<?php $studentimage = $user["studentimage"]; ?>
-									<td><img src="assets/img/student/<?php echo $studentimage; ?>"></td>
-									<td id = "namaberita"><?php echo $user["nisn"]; ?></td>
-									<td id = "namaberita"><?php echo $user["nama"]; ?></td>
-									<td id = "namaberita"><?php echo $user["email"]; ?></td>
-									<td id = "namaberita"><?php echo $user["phonenumber"]; ?></td>
-									<td><?php echo $user["tanggallahir"]; ?></td>
-									<td><?php echo $user["age"]; ?></td>
-									<td><?php echo $user["religion"]; ?></td>
+									<td id = "namaberita"><?php echo $user["name"]; ?></td>
 									<td>
 										<?php
-										$idkelas = $user["kelas"];
-										$hayolok = mysqli_fetch_assoc(mysqli_query($connt, "SELECT * FROM class WHERE id = $idkelas"));
-										echo $hayolok["class"];
+										if($user["day"] == 1){
+											echo "Monday";
+										}
+										elseif($user["day"] == 2){
+											echo "Tuesday";
+										}
+										elseif($user["day"] == 3){
+											echo "Wednesday";
+										}
+										elseif($user["day"] == 4){
+											echo "Thursday";
+										}
+										else{
+											echo "Friday";
+										}
 										?>
 									</td>
+									<td><?php echo $user["timestart"]; ?></td>
+									<td><?php echo $user["timeend"]; ?></td>
 									<td id = "<?php echo $user['id']; ?>">
 										<div class="dropdown" id = "<?php echo $user['id']; ?>">
 											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 												<i class="dw dw-more"></i>
 											</a>
 											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-    										<a class="dropdown-item" href="editstudent.php?id=<?php echo $user['id']; ?>"><i class="dw dw-edit2"></i> Edit</a>
+    										<a class="dropdown-item" href="editlessonschedule.php?id=<?php echo $user['id']; ?>"><i class="dw dw-edit2"></i> Edit</a>
     										<div style = "cursor: pointer;" class="dropdown-item" onclick = "deleteaccountadmin(<?php echo $user['id']; ?>);"><i class="dw dw-delete-3"></i> Delete</div>
 											</div>
-                      <script type="text/javascript">
-          							function deleteaccountadmin(iduser){
-          									$(document).ready(function(){
-          											var deleteid = iduser;
-          											var kode = "hapusstudent";
-          											<?php if($admin["notif"] == "y") : ?>
-          											var confirmalert = confirm("Are You Sure You Want To Delete This Student?");
-          											<?php else : ?>
-          											var confirmalert = true;
-          											<?php endif; ?>
-          											if (confirmalert == true){
-          												$.ajax({
-          													url: 'function.php',
-          													type: 'POST',
-          													data: {deleteid:deleteid,kode:kode},
-          													success: function(response){
-          													if(response == 1){
-          														<?php if($admin["notif"] == "y") : ?>
-          														alert('Student Deleted Successfully');
-          														<?php endif; ?>
-          														document.getElementById(deleteid).style.display = "none";
-          													}else if(response == 99){
-          														 alert('You Have Reached The Limit For Reply To This Comment');
-          													 }else if(response == 999){
-          														 alert('Email Is Already Taken');
-          													 }else if(response == 9999){
-          															 alert('Username Is Already Taken');
-          														 }else{
-          													 }
-          													}
-          												});
-          											}
-          									});
-          							}
-          						</script>
 										</div>
 									</td>
 								</tr>
@@ -157,10 +125,52 @@
                 <?php endforeach; ?>
 							</tbody>
 						</table>
+						<br> <br>
+
+
+
+
 					</div>
 				</div>
+				<?php endforeach; ?>
+
 				<!-- Simple Datatable End -->
       </div>
+			<script type="text/javascript">
+				function deleteaccountadmin(iduser){
+						$(document).ready(function(){
+								var deleteid = iduser;
+								var kode = "deletelessonschedule";
+								<?php if($admin["notif"] == "y") : ?>
+								var confirmalert = confirm("Are You Sure You Want To Delete This Lesson Schedule?");
+								<?php else : ?>
+								var confirmalert = true;
+								<?php endif; ?>
+								if (confirmalert == true){
+									$.ajax({
+										url: 'function.php',
+										type: 'POST',
+										data: {deleteid:deleteid,kode:kode},
+										success: function(response){
+										if(response == 1){
+											<?php if($admin["notif"] == "y") : ?>
+											alert('Lesson Schedule Deleted Successfully');
+											<?php endif; ?>
+											document.getElementById(deleteid).style.display = "none";
+										}else if(response == 99){
+											 alert('You Have Reached The Limit For Reply To This Comment');
+										 }else if(response == 999){
+											 alert('Email Is Already Taken');
+										 }else if(response == 9999){
+												 alert('Username Is Already Taken');
+											 }else{
+										 }
+										}
+									});
+								}
+						});
+				}
+			</script>
       <?php require 'footer-wrap.php'; ?>
     </div>
   </div>
